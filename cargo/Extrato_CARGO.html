@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extrato de Horas · NDD ELOG</title>
+    <title>Extrato de Horas · NDD Cargo</title>
 
     <style>
         @page { margin: 0; size: A4; }
@@ -72,12 +72,12 @@
         .controls .botoes { display: flex; flex-wrap: wrap; gap: 10px; }
         .controls .btn { padding: 7px 20px; border: none; border-radius: 25px; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.2s; }
 
-        /* CORES TEMÁTICAS DO ELOG (AZUL) */
-        .controls .campo input:focus { border-color: #6fb8fc; }
-        .controls .check-group input[type="checkbox"] { accent-color: #6fb8fc; }
-        .controls .modelo-group input[type="radio"] { accent-color: #6fb8fc; }
-        .btn-calcular { background: #6fb8fc; color: #fff; }
-        .btn-calcular:hover { background: #5a9cd9; }
+        /* CORES TEMÁTICAS DO CARGO (ROSA) */
+        .controls .campo input:focus { border-color: #ff7079; }
+        .controls .check-group input[type="checkbox"] { accent-color: #ff7079; }
+        .controls .modelo-group input[type="radio"] { accent-color: #ff7079; }
+        .btn-calcular { background: #ff7079; color: #fff; }
+        .btn-calcular:hover { background: #e05a61; }
         .btn-imprimir { background: #6c757d; color: #fff; }
         .btn-imprimir:hover { background: #495057; }
         .btn-limpar { background: #e9ecef; color: #333; }
@@ -112,7 +112,7 @@
 
         table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
         th {
-            background: #6fb8fc;
+            background: #ff7079;
             color: #000;
             border: 2px solid #9ec0ea;
             padding: 6px 8px;
@@ -124,7 +124,7 @@
             font-size: 14px;
         }
         .center { text-align: center; }
-        .total td { background: #6fb8fc; font-weight: bold; }
+        .total td { background: #ff7079; font-weight: bold; }
         .total-etapa { font-weight: bold; margin: 4px 0 12px 0; font-size: 14px; }
 
         .observacoes {
@@ -219,9 +219,6 @@
                 color: #e3062b !important;
                 font-weight: bold !important;
             }
-
-            /* ===== ESCONDER MÓDULOS EXTRAS SOMENTE NA TABELA DE "ITEM" ===== */
-            .tabela-itens tr:nth-child(n+4) { display: none !important; }
         }
 
         @media screen and (max-width: 800px) {
@@ -250,19 +247,18 @@
             </div>
             <div class="campo">
                 <label for="usuarios">Usuários</label>
-                <input type="number" id="usuarios" value="5" min="0">
+                <input type="number" id="usuarios" value="15" min="0">
+            </div>
+            <div class="campo">
+                <label for="pontos">Pontos Emissores</label>
+                <input type="number" id="pontos" value="3" min="0" placeholder="opcional">
             </div>
         </div>
 
         <div class="check-group">
-            <label><input type="checkbox" id="modEssencial" checked> Essencial</label>
-            <label><input type="checkbox" id="modTorre" checked> Torre de Controle</label>
-            <label><input type="checkbox" id="modVale" checked> Vale Pedágio Obrigatório</label>
-            <label><input type="checkbox" id="modFrete"> Pagamento de Frete</label>
-            <label><input type="checkbox" id="modAuditoria"> Auditoria de Fretes</label>
-            <label><input type="checkbox" id="modPedidos"> Pedidos (Integração)</label>
-            <label><input type="checkbox" id="modEventos" checked> Eventos Logísticos (Integração)</label>
-            <label><input type="checkbox" id="modPagamento" checked> Pagamento (Integração)</label>
+            <label><input type="checkbox" id="modCIOT" checked> Emissão CIOT</label>
+            <label><input type="checkbox" id="modFrete" checked> Pagamento de Frete</label>
+            <label><input type="checkbox" id="modVale" checked> Vale Pedágio</label>
         </div>
 
         <div class="action-group">
@@ -284,25 +280,17 @@
             <img src="assets/logoNDD.png" alt="Logo NDD">
         </div>
         <div class="titulo">EXTRATO DE HORAS</div>
-        <div class="subtitulo">Implantação Plataforma Logística – NDD ELOG</div>
+        <div class="subtitulo">Implantação Plataforma Logística – NDD CARGO</div>
         <div class="info">
             <strong>Cliente:</strong> <span id="spanCliente1">Empresa Exemplo</span><br>
             <strong>Data:</strong> <span id="spanData1">04/08/2026</span>
         </div>
         <div class="linha-vermelha"></div>
         <div class="section-title">Consolidação Geral do Projeto</div>
-        <table class="tabela-itens">
+        <table>
             <tr><th align="left">Item</th><th>Informação</th></tr>
             <tr><td>CNPJs envolvidos</td><td class="center" id="infoCnpjs1">2</td></tr>
-            <tr><td>Usuários</td><td class="center" id="infoUsuarios1">5</td></tr>
-            <tr><td>Essencial</td><td class="center" id="infoEssencial1">Sim</td></tr>
-            <tr><td>Torre de Controle</td><td class="center" id="infoTorre1">Sim</td></tr>
-            <tr><td>Vale Pedágio Obrigatório</td><td class="center" id="infoVale1">Sim</td></tr>
-            <tr><td>Pagamento de Frete</td><td class="center" id="infoFrete1">Não</td></tr>
-            <tr><td>Auditoria de Fretes</td><td class="center" id="infoAuditoria1">Não</td></tr>
-            <tr><td>Integração - Pedidos</td><td class="center" id="infoPedidos1">Não</td></tr>
-            <tr><td>Integração - Eventos Logísticos</td><td class="center" id="infoEventos1">Sim</td></tr>
-            <tr><td>Integração - Pagamento</td><td class="center" id="infoPagamento1">Sim</td></tr>
+            <tr><td>Usuários</td><td class="center" id="infoUsuarios1">15</td></tr>
         </table>
         <table>
             <thead><tr><th align="left">Etapa</th><th>Horas</th><th>Dias</th><th>Semanas</th></tr></thead>
@@ -317,25 +305,17 @@
             <img src="assets/logoNDD.png" alt="Logo NDD">
         </div>
         <div class="titulo">EXTRATO DE HORAS</div>
-        <div class="subtitulo">Implantação Plataforma Logística – NDD ELOG</div>
+        <div class="subtitulo">Implantação Plataforma Logística – NDD CARGO</div>
         <div class="info">
             <strong>Cliente:</strong> <span id="spanCliente2">Empresa Exemplo</span><br>
             <strong>Data:</strong> <span id="spanData2">04/08/2026</span>
         </div>
         <div class="linha-vermelha"></div>
         <div class="section-title">Consolidação Geral do Projeto</div>
-        <table class="tabela-itens">
+        <table>
             <tr><th align="left">Item</th><th>Informação</th></tr>
             <tr><td>CNPJs envolvidos</td><td class="center" id="infoCnpjs2">2</td></tr>
-            <tr><td>Usuários</td><td class="center" id="infoUsuarios2">5</td></tr>
-            <tr><td>Essencial</td><td class="center" id="infoEssencial2">Sim</td></tr>
-            <tr><td>Torre de Controle</td><td class="center" id="infoTorre2">Sim</td></tr>
-            <tr><td>Vale Pedágio Obrigatório</td><td class="center" id="infoVale2">Sim</td></tr>
-            <tr><td>Pagamento de Frete</td><td class="center" id="infoFrete2">Não</td></tr>
-            <tr><td>Auditoria de Fretes</td><td class="center" id="infoAuditoria2">Não</td></tr>
-            <tr><td>Integração - Pedidos</td><td class="center" id="infoPedidos2">Não</td></tr>
-            <tr><td>Integração - Eventos Logísticos</td><td class="center" id="infoEventos2">Sim</td></tr>
-            <tr><td>Integração - Pagamento</td><td class="center" id="infoPagamento2">Sim</td></tr>
+            <tr><td>Usuários</td><td class="center" id="infoUsuarios2">15</td></tr>
         </table>
         <table>
             <thead><tr><th align="left">Etapa</th><th>Horas</th><th>Dias</th><th>Semanas</th></tr></thead>
@@ -344,9 +324,9 @@
         <div class="linha-vermelha entre-titulos"></div>
         <div class="section-title" style="margin-top:0;">Consolidação Detalhada do Projeto</div>
         <div id="detalhamentoEtapas2"></div>
-        <div class="total-projeto" id="totalProjeto2">Total do Projeto: 0 horas</div>
-        <div class="equivalente" id="equivDias2">Equivalente a aproximadamente: 0 dias úteis</div>
-        <div class="equivalente" id="equivSemanas2">Equivalente a aproximadamente: 0 semana(s)</div>
+        <div class="total-projeto" id="totalProjeto2">Total do Projeto: 41 horas</div>
+        <div class="equivalente" id="equivDias2">Equivalente a aproximadamente: 5 dias úteis</div>
+        <div class="equivalente" id="equivSemanas2">Equivalente a aproximadamente: 1 semana(s)</div>
         <div class="observacoes">
             <strong>Observações</strong>
             <ul>
@@ -354,6 +334,8 @@
                 <li>Eventuais customizações, integrações adicionais ou alterações de escopo poderão gerar revisão do esforço estimado.</li>
                 <li>O projeto contempla acompanhamento técnico durante a fase de implantação e estabilização operacional.</li>
                 <li>As horas apresentadas consideram atividades funcionais, técnicas, testes, homologação e suporte pós implantação.</li>
+                <li>Sobre a criação da Conta Digital, tempo varia conforme qualidade dos documentos do cliente, no caso de reenvio de documentação para correção, pode haver aumento no tempo de espera.</li>
+                <li>Treinamento é no modelo de vídeo aula, onde é mostrado passo a passo como realizar as emissões dentro do portal NDD CARGO.</li>
             </ul>
         </div>
         <div class="linha-vermelha rodape"></div>
@@ -365,43 +347,23 @@
             const inputCliente = document.getElementById('cliente');
             const inputData = document.getElementById('data');
             const inputCNPJs = document.getElementById('cnpjs');
+            const inputPontos = document.getElementById('pontos');
             const inputUsuarios = document.getElementById('usuarios');
-            const modEssencial = document.getElementById('modEssencial');
-            const modTorre = document.getElementById('modTorre');
-            const modVale = document.getElementById('modVale');
+            const modCIOT = document.getElementById('modCIOT');
             const modFrete = document.getElementById('modFrete');
-            const modAuditoria = document.getElementById('modAuditoria');
-            const modPedidos = document.getElementById('modPedidos');
-            const modEventos = document.getElementById('modEventos');
-            const modPagamento = document.getElementById('modPagamento');
+            const modVale = document.getElementById('modVale');
             const radioModelo = document.querySelectorAll('input[name="modelo"]');
 
             const spanCliente1 = document.getElementById('spanCliente1');
             const spanData1 = document.getElementById('spanData1');
             const infoCnpjs1 = document.getElementById('infoCnpjs1');
             const infoUsuarios1 = document.getElementById('infoUsuarios1');
-            const infoEssencial1 = document.getElementById('infoEssencial1');
-            const infoTorre1 = document.getElementById('infoTorre1');
-            const infoVale1 = document.getElementById('infoVale1');
-            const infoFrete1 = document.getElementById('infoFrete1');
-            const infoAuditoria1 = document.getElementById('infoAuditoria1');
-            const infoPedidos1 = document.getElementById('infoPedidos1');
-            const infoEventos1 = document.getElementById('infoEventos1');
-            const infoPagamento1 = document.getElementById('infoPagamento1');
             const corpoEtapas1 = document.getElementById('corpoEtapas1');
 
             const spanCliente2 = document.getElementById('spanCliente2');
             const spanData2 = document.getElementById('spanData2');
             const infoCnpjs2 = document.getElementById('infoCnpjs2');
             const infoUsuarios2 = document.getElementById('infoUsuarios2');
-            const infoEssencial2 = document.getElementById('infoEssencial2');
-            const infoTorre2 = document.getElementById('infoTorre2');
-            const infoVale2 = document.getElementById('infoVale2');
-            const infoFrete2 = document.getElementById('infoFrete2');
-            const infoAuditoria2 = document.getElementById('infoAuditoria2');
-            const infoPedidos2 = document.getElementById('infoPedidos2');
-            const infoEventos2 = document.getElementById('infoEventos2');
-            const infoPagamento2 = document.getElementById('infoPagamento2');
             const corpoEtapasResumo2 = document.getElementById('corpoEtapasResumo2');
             const detalhamentoEtapas2 = document.getElementById('detalhamentoEtapas2');
             const totalProjeto2 = document.getElementById('totalProjeto2');
@@ -439,15 +401,11 @@
             function limparCampos() {
                 inputCliente.value = '';
                 inputCNPJs.value = '';
+                inputPontos.value = '';
                 inputUsuarios.value = '';
-                modEssencial.checked = false;
-                modTorre.checked = false;
-                modVale.checked = false;
+                modCIOT.checked = false;
                 modFrete.checked = false;
-                modAuditoria.checked = false;
-                modPedidos.checked = false;
-                modEventos.checked = false;
-                modPagamento.checked = false;
+                modVale.checked = false;
                 calcular();
             }
 
@@ -461,6 +419,7 @@
             function calcular() {
                 const cliente = inputCliente.value.trim() || 'Não informado';
                 const cnpjs = getNumber('cnpjs');
+                const pontosRaw = getNumber('pontos');
                 const usuarios = getNumber('usuarios');
 
                 if (isNaN(cnpjs) || cnpjs < 0 || isNaN(usuarios) || usuarios < 0) {
@@ -468,83 +427,65 @@
                     return;
                 }
 
-                const essencialAtivo = modEssencial.checked;
-                const torreAtivo = modTorre.checked;
-                const valeAtivo = modVale.checked;
+                const temPontos = !isNaN(pontosRaw) && pontosRaw >= 0;
+                const pontos = temPontos ? pontosRaw : 0;
+                const ciotAtivo = modCIOT.checked;
                 const freteAtivo = modFrete.checked;
-                const auditoriaAtivo = modAuditoria.checked;
-                const pedidosAtivo = modPedidos.checked;
-                const eventosAtivo = modEventos.checked;
-                const pagamentoAtivo = modPagamento.checked;
+                const valeAtivo = modVale.checked;
 
-                const totalAmbientes = 32 + ((cnpjs - 1) * 3);
-                const totalCadastro = 16 + ((cnpjs - 1) * 3);
-                const totalUsuarios = 2 + ((usuarios - 1) * 1);
+                let cadastroReal = temPontos ? Math.abs(cnpjs - pontos) * 1 : cnpjs * 1;
+                const cadastroExibido = cadastroReal;
+                const usuariosReal = usuarios * 0.5;
+                const usuariosExibido = Math.ceil(usuariosReal);
 
-                let totalIntegracoes = 0;
-                if (pedidosAtivo) totalIntegracoes += 21;
-                if (eventosAtivo) totalIntegracoes += 21;
-                if (pagamentoAtivo) totalIntegracoes += 12;
+                let ciotReal = 0;
+                if (ciotAtivo) {
+                    ciotReal = temPontos ? Math.abs(cnpjs - pontos) * 8 : cnpjs * 8;
+                }
+                const ciotExibido = ciotReal;
+                let freteReal = 0;
+                if (freteAtivo) {
+                    freteReal = temPontos ? Math.abs(cnpjs - pontos) * 8 : cnpjs * 8;
+                }
+                const freteExibido = freteReal;
+                let valeReal = 0;
+                if (valeAtivo) {
+                    valeReal = temPontos ? Math.abs(cnpjs - pontos) * 8 : cnpjs * 8;
+                }
+                const valeExibido = valeReal;
+                const contaDigitalReal = (freteAtivo || valeAtivo) ? 6 : 0;
+                const contaDigitalExibido = contaDigitalReal;
+                const treinamentoReal = 2;
+                const treinamentoExibido = 2;
 
-                const totalEssencial = essencialAtivo ? 40 : 0;
-                const totalTorre = torreAtivo ? 20 : 0;
-                const totalVale = valeAtivo ? 16 : 0;
-                const totalFrete = freteAtivo ? 22 : 0;
-                const totalAuditoria = auditoriaAtivo ? 15 : 0;
-                const totalGoLive = 5;
-                const totalSustentacao = 40;
-                const totalTreinamento = 8;
+                const itens = [
+                    { nome: 'Cadastro e Parametrização Operacional', real: cadastroReal, exibido: cadastroExibido, ativo: true },
+                    { nome: 'Criação e Configuração de Usuários', real: usuariosReal, exibido: usuariosExibido, ativo: true },
+                    { nome: 'Módulo Emissão de CIOT', real: ciotReal, exibido: ciotExibido, ativo: ciotAtivo },
+                    { nome: 'Módulo Pagamento de Frete', real: freteReal, exibido: freteExibido, ativo: freteAtivo },
+                    { nome: 'Módulo Vale Pedágio', real: valeReal, exibido: valeExibido, ativo: valeAtivo },
+                    { nome: 'Criação de Conta Digital', real: contaDigitalReal, exibido: contaDigitalExibido, ativo: (freteAtivo || valeAtivo) },
+                    { nome: 'Acompanhamento e Treinamento', real: treinamentoReal, exibido: treinamentoExibido, ativo: true }
+                ];
 
-                const totalReal = (totalAmbientes * 0.99) + totalCadastro + (totalUsuarios * 0.99) +
-                    totalIntegracoes + totalEssencial + totalTorre + totalVale +
-                    totalFrete + totalAuditoria + totalGoLive + totalSustentacao + totalTreinamento;
-                const totalExibido = Math.round(totalReal);
+                const totalExibido = itens.reduce((acc, item) => {
+                    if (item.ativo) return acc + item.exibido;
+                    return acc;
+                }, 0);
 
                 spanCliente1.textContent = cliente;
                 spanCliente2.textContent = cliente;
                 obsCliente2.textContent = cliente;
-
                 infoCnpjs1.textContent = cnpjs;
                 infoCnpjs2.textContent = cnpjs;
                 infoUsuarios1.textContent = usuarios;
                 infoUsuarios2.textContent = usuarios;
-                infoEssencial1.textContent = essencialAtivo ? 'Sim' : 'Não';
-                infoEssencial2.textContent = essencialAtivo ? 'Sim' : 'Não';
-                infoTorre1.textContent = torreAtivo ? 'Sim' : 'Não';
-                infoTorre2.textContent = torreAtivo ? 'Sim' : 'Não';
-                infoVale1.textContent = valeAtivo ? 'Sim' : 'Não';
-                infoVale2.textContent = valeAtivo ? 'Sim' : 'Não';
-                infoFrete1.textContent = freteAtivo ? 'Sim' : 'Não';
-                infoFrete2.textContent = freteAtivo ? 'Sim' : 'Não';
-                infoAuditoria1.textContent = auditoriaAtivo ? 'Sim' : 'Não';
-                infoAuditoria2.textContent = auditoriaAtivo ? 'Sim' : 'Não';
-                infoPedidos1.textContent = pedidosAtivo ? 'Sim' : 'Não';
-                infoPedidos2.textContent = pedidosAtivo ? 'Sim' : 'Não';
-                infoEventos1.textContent = eventosAtivo ? 'Sim' : 'Não';
-                infoEventos2.textContent = eventosAtivo ? 'Sim' : 'Não';
-                infoPagamento1.textContent = pagamentoAtivo ? 'Sim' : 'Não';
-                infoPagamento2.textContent = pagamentoAtivo ? 'Sim' : 'Não';
-
-                const itens = [
-                    { nome: 'Configuração de Ambientes (HMG + PRD)', real: (totalAmbientes * 0.99), ativo: true },
-                    { nome: 'Cadastro e Parametrização Operacional', real: totalCadastro, ativo: true },
-                    { nome: 'Criação e Configuração de Usuários', real: (totalUsuarios * 0.99), ativo: true },
-                    { nome: 'Integrações', real: totalIntegracoes, ativo: totalIntegracoes > 0 },
-                    { nome: 'Configuração Essencial', real: totalEssencial, ativo: essencialAtivo },
-                    { nome: 'Configuração Torre de Controle', real: totalTorre, ativo: torreAtivo },
-                    { nome: 'Configuração Vale Pedágio Obrigatório (VPO)', real: totalVale, ativo: valeAtivo },
-                    { nome: 'Configuração Pagamento de Frete', real: totalFrete, ativo: freteAtivo },
-                    { nome: 'Configuração Auditoria de Fretes', real: totalAuditoria, ativo: auditoriaAtivo },
-                    { nome: 'Go Live (Entrada em Produção)', real: totalGoLive, ativo: true },
-                    { nome: 'Sustentação Pós Go Live', real: totalSustentacao, ativo: true },
-                    { nome: 'Treinamento', real: totalTreinamento, ativo: true }
-                ];
 
                 function gerarLinhasResumo() {
                     let html = '';
                     itens.forEach((item) => {
                         if (item.ativo) {
-                            const horas = Math.round(item.real);
+                            const horas = item.exibido;
                             const dias = round1(item.real / 8);
                             const semanas = round1(item.real / 40);
                             html += `<tr><td>${item.nome}</td><td class="center">${horas.toFixed(0)}h</td><td class="center">${dias.toFixed(1)}</td><td class="center">${semanas.toFixed(1)}</td></tr>`;
@@ -552,8 +493,8 @@
                             html += `<tr class="nao-aplicavel"><td>${item.nome}</td><td class="center texto-na">*não aplicável</td><td class="center">-</td><td class="center">-</td></tr>`;
                         }
                     });
-                    const totalDias = Math.ceil(totalReal / 8);
-                    const totalSemanas = Math.ceil(totalReal / 40);
+                    const totalDias = Math.ceil(totalExibido / 8);
+                    const totalSemanas = Math.ceil(totalExibido / 40);
                     html += `<tr class="total"><td>Total</td><td class="center">${totalExibido.toFixed(0)} horas</td><td class="center">${totalDias} dia(s)</td><td class="center">${totalSemanas} semana(s)</td></tr>`;
                     return html;
                 }
@@ -563,85 +504,22 @@
                 corpoEtapasResumo2.innerHTML = resumoHTML;
 
                 const subitensConfig = [
-                    {
-                        nome: 'Configuração de Ambientes (HMG + PRD)',
-                        sub: [
-                            { nome: 'Configuração do ambiente HMG', pct: 0.36 },
-                            { nome: 'Configuração do ambiente PRD', pct: 0.36 },
-                            { nome: 'Ajustes e parametrização', pct: 0.27 }
-                        ]
-                    },
-                    {
-                        nome: 'Cadastro e Parametrização Operacional',
-                        sub: [
-                            { nome: 'Cadastro dos CNPJ\'s', pct: 0.20 },
-                            { nome: 'Parametrização logística', pct: 0.47 },
-                            { nome: 'Testes e validações', pct: 0.33 }
-                        ]
-                    },
-                    {
-                        nome: 'Criação e Configuração de Usuários',
-                        sub: [
-                            { nome: 'Criação de usuários', pct: 0.33 },
-                            { nome: 'Configuração de perfis', pct: 0.33 },
-                            { nome: 'Validação com cliente', pct: 0.33 }
-                        ]
-                    },
-                    {
-                        nome: 'Integrações',
-                        sub: [
-                            { nome: 'Análise técnica', pct: 0.22 },
-                            { nome: 'Configuração da integração', pct: 0.37 },
-                            { nome: 'Testes em homologação', pct: 0.19 },
-                            { nome: 'Testes em produção', pct: 0.11 },
-                            { nome: 'Ajustes finais', pct: 0.11 }
-                        ]
-                    },
-                    {
-                        nome: 'Configuração Essencial',
-                        sub: [
-                            { nome: 'Configuração da integração', pct: 0.60 },
-                            { nome: 'Testes e validações', pct: 0.40 }
-                        ]
-                    },
-                    {
-                        nome: 'Configuração Torre de Controle',
-                        sub: [
-                            { nome: 'Configuração', pct: 0.60 },
-                            { nome: 'Testes e validações', pct: 0.40 }
-                        ]
-                    },
-                    {
-                        nome: 'Configuração Vale Pedágio Obrigatório (VPO)',
-                        sub: [
-                            { nome: 'Configuração', pct: 0.56 },
-                            { nome: 'Testes e validações', pct: 0.44 }
-                        ]
-                    },
-                    {
-                        nome: 'Configuração Pagamento de Frete',
-                        sub: [
-                            { nome: 'Parametrização financeira', pct: 0.55 },
-                            { nome: 'Testes e validações', pct: 0.45 }
-                        ]
-                    },
-                    {
-                        nome: 'Configuração Auditoria de Fretes',
-                        sub: [
-                            { nome: 'Configuração', pct: 0.60 },
-                            { nome: 'Testes e validações', pct: 0.40 }
-                        ]
-                    },
-                    { nome: 'Go Live (Entrada em Produção)', sub: [] },
-                    { nome: 'Sustentação Pós Go Live', sub: [] },
-                    { nome: 'Treinamento', sub: [] }
+                    { nome: 'Cadastro e Parametrização Operacional', sub: [ { nome: 'Cadastro dos CNPJ\'s', pct: 0.50 }, { nome: 'Parametrização logística', pct: 0.25 }, { nome: 'Testes e validações', pct: 0.25 } ] },
+                    { nome: 'Criação e Configuração de Usuários', sub: [ { nome: 'Criação de usuários', pct: 0.50 }, { nome: 'Configuração de perfis', pct: 0.35 }, { nome: 'Validação com cliente', pct: 0.15 } ] },
+                    { nome: 'Módulo Emissão de CIOT', sub: [ { nome: 'Configuração de Ambiente PRD', pct: 0.25 }, { nome: 'Ajustes e estabilização', pct: 0.75 } ] },
+                    { nome: 'Módulo de Pagamento de Frete', sub: [ { nome: 'Configuração de Ambiente PRD', pct: 0.25 }, { nome: 'Ajustes e estabilização', pct: 0.75 } ] },
+                    { nome: 'Módulo de VPO', sub: [ { nome: 'Configuração de Ambiente PRD', pct: 0.25 }, { nome: 'Ajustes e estabilização', pct: 0.75 } ] },
+                    { nome: 'Criação Conta Digital', sub: [ { nome: 'Recepção e análise da documentação (interno)', pct: 0.25 }, { nome: 'Revisão e envio para abertura', pct: 0.75 } ] },
+                    { nome: 'Acompanhamento e Treinamento', sub: [] }
                 ];
 
                 let detalhamentoHTML = '';
                 itens.forEach((item, i) => {
                     const config = subitensConfig[i];
                     if (!config) return;
-                    const totalHoras = item.real;
+                    const totalHoras = item.exibido;
+                    const totalDias = round1(item.real / 8);
+                    const totalSemanas = round1(item.real / 40);
 
                     detalhamentoHTML += `<div class="sub-section-title">${i+1}. ${config.nome}</div>`;
                     if (item.ativo) {
@@ -655,9 +533,9 @@
                             });
                             detalhamentoHTML += `</table>`;
                         } else {
-                            detalhamentoHTML += `<table><tr><th align="left">Etapa</th><th>Horas</th><th>Dias</th><th>Semanas</th></tr><tr><td>Total</td><td class="center">${totalHoras.toFixed(1)}h</td><td class="center">${(totalHoras/8).toFixed(1)}</td><td class="center">${(totalHoras/40).toFixed(1)}</td></tr></table>`;
+                            detalhamentoHTML += `<table><tr><th align="left">Etapa</th><th>Horas</th><th>Dias</th><th>Semanas</th></tr><tr><td>Total</td><td class="center">${totalHoras.toFixed(0)}h</td><td class="center">${totalDias.toFixed(1)}</td><td class="center">${totalSemanas.toFixed(1)}</td></tr></table>`;
                         }
-                        detalhamentoHTML += `<div class="total-etapa">Total da etapa: ${totalHoras.toFixed(1)}h ( ${Math.ceil(totalHoras/8)} dia(s) / ${Math.ceil(totalHoras/40)} semana(s) )</div>`;
+                        detalhamentoHTML += `<div class="total-etapa">Total da etapa: ${totalHoras.toFixed(0)}h ( ${Math.ceil(totalDias)} dia(s) / ${Math.ceil(totalSemanas)} semana(s) )</div>`;
                     } else {
                         detalhamentoHTML += `<table class="nao-aplicavel"><tr><th align="left">Etapa</th><th>Horas</th><th>Dias</th><th>Semanas</th></tr><tr><td>Total</td><td class="center texto-na">*não aplicável</td><td class="center">-</td><td class="center">-</td></tr></table>`;
                         detalhamentoHTML += `<div class="total-etapa">Total da etapa: *não aplicável</div>`;
@@ -669,8 +547,8 @@
 
                 detalhamentoEtapas2.innerHTML = detalhamentoHTML;
 
-                const totalDiasInt = Math.ceil(totalReal / 8);
-                const totalSemanasInt = Math.ceil(totalReal / 40);
+                const totalDiasInt = Math.ceil(totalExibido / 8);
+                const totalSemanasInt = Math.ceil(totalExibido / 40);
                 totalProjeto2.textContent = `Total do Projeto: ${totalExibido.toFixed(0)} horas`;
                 equivDias2.textContent = `Equivalente a aproximadamente: ${totalDiasInt} dias úteis`;
                 equivSemanas2.textContent = `Equivalente a aproximadamente: ${totalSemanasInt} semana(s)`;
