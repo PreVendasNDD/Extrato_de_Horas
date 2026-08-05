@@ -27,15 +27,15 @@
             align-items: center;
         }
 
-        /* ---------- CONTROLES ---------- */
+                /* ---------- CONTROLES ---------- */
         .controls {
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
             background: #fff;
             padding: 18px 22px;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto;
         }
 
         .controls .linha {
@@ -68,7 +68,7 @@
         }
 
         .controls .campo input:focus {
-            border-color: #d81b35;
+            border-color: #6fb8fc;
             outline: none;
             background: #fff;
         }
@@ -96,7 +96,7 @@
         .controls .check-group input[type="checkbox"] {
             width: 15px;
             height: 15px;
-            accent-color: #d81b35;
+            accent-color: #6fb8fc;
             cursor: pointer;
         }
 
@@ -120,7 +120,7 @@
         .controls .modelo-group input[type="radio"] {
             width: 16px;
             height: 16px;
-            accent-color: #d81b35;
+            accent-color: #6fb8fc;
             cursor: pointer;
         }
 
@@ -141,60 +141,29 @@
             transition: 0.2s;
         }
 
-        .btn-calcular { background: #1a2f4f; color: #fff; }
-        .btn-calcular:hover { background: #0b1a33; }
+        .btn-calcular { background: #6fb8fc; color: #fff; }
+        .btn-calcular:hover { background: #5a9cd9; }
+
         .btn-imprimir { background: #6c757d; color: #fff; }
         .btn-imprimir:hover { background: #495057; }
+
         .btn-limpar { background: #e9ecef; color: #333; }
         .btn-limpar:hover { background: #ced4da; }
 
-        /* ---------- EXTRATO ---------- */
+        /* ---------- EXTRATO (ESTILIZAÇÃO DE TELA) ---------- */
         .page {
-            width: 210mm;
-            min-height: 297mm;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 50px;
             background: #fff;
-            margin: auto;
-            padding: 28px 32px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             display: none;
         }
 
         .page.active {
             display: none;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .logo img {
-            width: 90px;
-            height: auto;
-        }
-
-        .titulo {
-            text-align: center;
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 3px;
-        }
-
-        .subtitulo {
-            text-align: center;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 3px;
-        }
-
-        .info {
-            margin-top: 28px;
-            font-size: 14px;
-            line-height: 26px;
-        }
-
-        .info strong {
-            font-weight: bold;
         }
 
         /* ---- LINHAS VERMELHAS COM LARGURA UM POUCO MAIOR ---- */
