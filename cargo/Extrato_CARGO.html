@@ -391,6 +391,16 @@
                 display: block !important;
                 margin: 0 auto !important;
             }
+            .logo, .titulo, .subtitulo {
+                margin-top: 0 !important; /* Garante que fique colado no topo da margem */
+            }
+            .info {
+                margin-top: 30px !important; /* Cria o espaçamento entre os títulos e o Cliente/Data */
+                text-align: center !important;
+            }
+            .info strong {
+                font-weight: bold !important; /* Garante que "Cliente:" e "Data:" fiquem em negrito */
+            }
         }
 
         @media screen and (max-width: 800px) {
