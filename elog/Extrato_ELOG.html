@@ -21,11 +21,11 @@
 
         body {
             background: #ececec;
-            min-height: 100vh;             /* ocupa a altura inteira da tela */
+            min-height: 100vh;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;       /* centraliza verticalmente */
+            justify-content: center;
             align-items: center;
         }
 
@@ -81,16 +81,30 @@
             color: #555;
         }
 
-        .controls .check-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 25px;
-            padding: 12px 0;
-            border-top: 1px solid #e9e9e9;
-            border-bottom: 1px solid #e9e9e9;
+        /* ---------- NOVAS COLUNAS ---------- */
+        .modulos-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 5px;
         }
 
-        .controls .check-group label {
+        .modulos-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .modulos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a2f4f;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #e9e9e9;
+            padding-bottom: 4px;
+        }
+
+        .modulos-col label {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -98,49 +112,21 @@
             cursor: pointer;
         }
 
-        .controls .check-group input[type="checkbox"] {
+        .modulos-col input[type="checkbox"],
+        .modulos-col input[type="radio"] {
             width: 15px;
             height: 15px;
             accent-color: #6fb8fc;
             cursor: pointer;
         }
 
-        .controls .action-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-top: 5px;
-        }
-
-        .controls .modelo-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .controls .modelo-group label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            color: #1a2f4f;
-        }
-
-        .controls .modelo-group input[type="radio"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #6fb8fc;
-            cursor: pointer;
-        }
-
-        .controls .botoes {
+        /* ---------- BOTÕES ---------- */
+        .botoes-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-top: 5px;
+            justify-content: flex-end;
         }
 
         .controls .btn {
@@ -162,6 +148,9 @@
         .btn-limpar { background: #e9ecef; color: #333; }
         .btn-limpar:hover { background: #ced4da; }
 
+        .btn-voltar { background: #6c757d; color: #fff; }
+        .btn-voltar:hover { background: #495057; }
+
         /* ---------- EXTRATO (ESTILIZAÇÃO DE TELA) ---------- */
         .page {
             max-width: 1000px;
@@ -178,7 +167,7 @@
             display: none;
         }
 
-        /* ---- LINHAS VERMELHAS COM LARGURA UM POUCO MAIOR ---- */
+        /* ---- LINHAS VERMELHAS ---- */
         .linha-vermelha {
             width: calc(100% + 20px);
             height: 3px;
@@ -217,7 +206,7 @@
         }
 
         th {
-            background: #6fb8fc; /* AZUL CLARO DO NDD ELOG */
+            background: #6fb8fc;
             color: #000;
             border: 2px solid #9ec0ea;
             padding: 6px 8px;
@@ -235,7 +224,7 @@
         }
 
         .total td {
-            background: #6fb8fc; /* AZUL CLARO DO NDD ELOG */
+            background: #6fb8fc;
             font-weight: bold;
         }
 
@@ -282,7 +271,7 @@
             font-weight: bold !important;
         }
 
-                /* ---------- IMPRESSÃO (REGRAS PADRÃO DO WINDOWS) ---------- */
+        /* ---------- IMPRESSÃO ---------- */
         @media print {
             html, body {
                 margin: 0 !important;
@@ -315,7 +304,7 @@
                 display: none !important;
             }
 
-            table, .etapa-bloco, .sub-section-title, .total-etapa, 
+            table, .etapa-bloco, .sub-section-title, .total-etapa,
             .observacoes, .total-projeto, .equivalente {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
@@ -381,25 +370,23 @@
                 font-weight: bold !important;
             }
 
-            /* ===== CORREÇÃO DO TOPO, NEGRITO E ESPAÇAMENTO ===== */
             .logo, .titulo, .subtitulo {
-                margin-top: 0 !important;          /* Cola no topo */
-                text-align: center !important;      /* Centraliza horizontalmente */
-                font-weight: bold !important;       /* Negrito nos títulos */
+                margin-top: 0 !important;
+                text-align: center !important;
+                font-weight: bold !important;
             }
             .logo img {
                 display: block !important;
                 margin: 0 auto !important;
             }
             .info {
-                margin-top: 30px !important;        /* Espaço entre título e Cliente/Data */
-                text-align: left !important;        /* Mantém Cliente/Data alinhados à esquerda */
+                margin-top: 30px !important;
+                text-align: left !important;
             }
             .info strong {
-                font-weight: bold !important;       /* Negrito nos rótulos Cliente/Data */
+                font-weight: bold !important;
             }
 
-            /* ===== ESCONDER MÓDULOS EXTRAS (APENAS ELOG) ===== */
             .tabela-itens tr:nth-child(n+4) {
                 display: none !important;
             }
@@ -415,6 +402,13 @@
             }
             .controls .campo {
                 flex: 1 1 100%;
+            }
+            .modulos-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .botoes-row {
+                justify-content: center;
             }
         }
     </style>
@@ -443,29 +437,40 @@
             </div>
         </div>
 
-        <!-- Linha 2: Checkboxes (Módulos) -->
-        <div class="check-group">
-            <label><input type="checkbox" id="modEssencial" checked> Essencial</label>
-            <label><input type="checkbox" id="modTorre" checked> Torre de Controle</label>
-            <label><input type="checkbox" id="modVale" checked> Vale Pedágio Obrigatório</label>
-            <label><input type="checkbox" id="modFrete"> Pagamento de Frete</label>
-            <label><input type="checkbox" id="modAuditoria"> Auditoria de Fretes</label>
-            <label><input type="checkbox" id="modPedidos"> Pedidos (Integração)</label>
-            <label><input type="checkbox" id="modEventos" checked> Eventos Logísticos (Integração)</label>
-            <label><input type="checkbox" id="modPagamento" checked> Pagamento (Integração)</label>
-        </div>
+        <!-- Linha 2: Três colunas (Módulos, Parametrização, Layout) -->
+        <div class="modulos-row">
+            <!-- Coluna 1: Módulos -->
+            <div class="modulos-col">
+                <h3>Módulos</h3>
+                <label><input type="checkbox" id="modEssencial" checked> Essencial</label>
+                <label><input type="checkbox" id="modTorre" checked> Torre de Controle</label>
+                <label><input type="checkbox" id="modVale" checked> Vale Pedágio Obrigatório</label>
+                <label><input type="checkbox" id="modFrete"> Pagamento de Frete</label>
+                <label><input type="checkbox" id="modAuditoria"> Auditoria de Fretes</label>
+            </div>
 
-        <!-- Linha 3: Modelo e Botões -->
-        <div class="action-group">
-            <div class="modelo-group">
+            <!-- Coluna 2: Parametrização (Integrações) -->
+            <div class="modulos-col">
+                <h3>Parametrização</h3>
+                <label><input type="checkbox" id="modPedidos"> Pedidos (Integração)</label>
+                <label><input type="checkbox" id="modEventos" checked> Eventos Logísticos (Integração)</label>
+                <label><input type="checkbox" id="modPagamento" checked> Pagamento (Integração)</label>
+            </div>
+
+            <!-- Coluna 3: Layout de Impressão -->
+            <div class="modulos-col">
+                <h3>Escolha o layout de impressão</h3>
                 <label><input type="radio" name="modelo" value="1" checked> Modelo 1 - Resumido</label>
                 <label><input type="radio" name="modelo" value="2"> Modelo 2 - Detalhado</label>
             </div>
-            <div class="botoes">
-                <button class="btn btn-calcular" id="calcularBtn">▶ Calcular</button>
-                <button class="btn btn-imprimir" id="imprimirBtn">🖨️ Imprimir</button>
-                <button class="btn btn-limpar" id="limparBtn">✕ Limpar</button>
-            </div>
+        </div>
+
+        <!-- Linha 3: Botões -->
+        <div class="botoes-row">
+            <button class="btn btn-calcular" id="calcularBtn">▶ Calcular</button>
+            <button class="btn btn-imprimir" id="imprimirBtn">🖨️ Imprimir</button>
+            <button class="btn btn-limpar" id="limparBtn">✕ Limpar</button>
+            <button class="btn btn-voltar" onclick="window.location.href='../index.html'">⬅ Voltar</button>
         </div>
     </div>
 
