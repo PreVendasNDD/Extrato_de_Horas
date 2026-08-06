@@ -282,12 +282,15 @@
             font-weight: bold !important;
         }
 
-        /* ---------- IMPRESSÃO (REGRAS PADRÃO DO WINDOWS) ---------- */
+                /* ---------- IMPRESSÃO (REGRAS PADRÃO DO WINDOWS) ---------- */
         @media print {
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
                 background: white !important;
+                display: block !important;
+                min-height: auto !important;
+                justify-content: flex-start !important;
             }
 
             .controls {
@@ -295,7 +298,7 @@
             }
 
             @page {
-                margin: 30mm 20mm 30mm 20mm !important; 
+                margin: 30mm 20mm 30mm 20mm !important;
                 size: A4;
             }
 
@@ -378,7 +381,25 @@
                 font-weight: bold !important;
             }
 
-            /* ===== ESCONDER MÓDULOS EXTRAS SOMENTE NA TABELA DE "ITEM" ===== */
+            /* ===== CORREÇÃO DO TOPO, NEGRITO E ESPAÇAMENTO ===== */
+            .logo, .titulo, .subtitulo {
+                margin-top: 0 !important;          /* Cola no topo */
+                text-align: center !important;      /* Centraliza horizontalmente */
+                font-weight: bold !important;       /* Negrito nos títulos */
+            }
+            .logo img {
+                display: block !important;
+                margin: 0 auto !important;
+            }
+            .info {
+                margin-top: 30px !important;        /* Espaço entre título e Cliente/Data */
+                text-align: left !important;        /* Mantém Cliente/Data alinhados à esquerda */
+            }
+            .info strong {
+                font-weight: bold !important;       /* Negrito nos rótulos Cliente/Data */
+            }
+
+            /* ===== ESCONDER MÓDULOS EXTRAS (APENAS ELOG) ===== */
             .tabela-itens tr:nth-child(n+4) {
                 display: none !important;
             }
