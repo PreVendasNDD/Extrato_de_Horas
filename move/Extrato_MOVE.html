@@ -282,18 +282,22 @@
             font-weight: bold !important;
         }
 
-        /* ---------- IMPRESSÃO (REGRAS PADRÃO DO WINDOWS) ---------- */
+         /* ---------- IMPRESSÃO (REGRAS PADRÃO DO WINDOWS) ---------- */
         @media print {
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
                 background: white !important;
+                display: block !important;
+                min-height: auto !important;
+                justify-content: flex-start !important;
             }
 
             .controls {
                 display: none !important;
             }
 
+            /* ===== MARGEM FÍSICA DA FOLHA (CORRIGE O CORTE NAS PÁGINAS 2, 3, 4) ===== */
             @page {
                 margin: 30mm 20mm 30mm 20mm !important; 
                 size: A4;
@@ -303,7 +307,7 @@
                 width: 100% !important;
                 min-height: auto !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 0 !important; /* O espaço agora é controlado pelo @page */
                 box-shadow: none !important;
                 display: block !important;
             }
@@ -312,6 +316,7 @@
                 display: none !important;
             }
 
+            /* ===== IMPEDIR QUE TABELAS E BLOCO DE TEXTO SEJAM CORTADOS NO MEIO ===== */
             table, .etapa-bloco, .sub-section-title, .total-etapa, 
             .observacoes, .total-projeto, .equivalente {
                 page-break-inside: avoid !important;
@@ -323,6 +328,7 @@
                 break-after: avoid !important;
             }
 
+            /* ===== CORREÇÃO DAS LINHAS VERMELHAS ===== */
             .linha-vermelha {
                 box-sizing: content-box !important;
                 width: calc(100% + 40mm) !important;
@@ -357,6 +363,7 @@
                 margin-bottom: 24px !important;
             }
 
+            /* ===== IMPRESSÃO DE CORES ===== */
             .linha-vermelha,
             th, .total td, .total-etapa {
                 -webkit-print-color-adjust: exact !important;
@@ -376,6 +383,24 @@
             .nao-aplicavel .texto-na {
                 color: #e3062b !important;
                 font-weight: bold !important;
+            }
+            .logo, .titulo, .subtitulo {
+                text-align: center !important;
+                font-weight: bold !important; /* Adicione esta linha */
+            }
+            .logo img {
+                display: block !important;
+                margin: 0 auto !important;
+            }
+            .logo, .titulo, .subtitulo {
+                margin-top: 0 !important; /* Garante que fique colado no topo da margem */
+            }
+            .info {
+                margin-top: 30px !important; /* Cria o espaçamento entre os títulos e o Cliente/Data */
+                
+            }
+            .info strong {
+                font-weight: bold !important; /* Garante que "Cliente:" e "Data:" fiquem em negrito */
             }
         }
 
