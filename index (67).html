@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Produtos · NDD</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #ececec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px 50px 50px 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Logo e Título */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-header img {
+            height: 45px;
+            width: auto;
+        }
+
+        .logo-header h1 {
+            font-size: 26px;
+            color: #1a2f4f;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e3062b;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Grid de Produtos */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* Cards */
+        .product-card {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 30px 20px 25px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .product-card h2 {
+            font-size: 22px;
+            margin-top: 15px;
+            color: #1a2f4f;
+        }
+
+        .product-card p {
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* Cores específicas de cada produto no Card */
+        .card-cargo {
+            border-top: 8px solid #ff7079;
+        }
+        .card-cargo:hover {
+            border: 2px solid #ff7079;
+            background: #fffafb;
+        }
+
+        .card-elog {
+            border-top: 8px solid #6fb8fc;
+        }
+        .card-elog:hover {
+            border: 2px solid #6fb8fc;
+            background: #f7fbff;
+        }
+
+        .card-move {
+            border-top: 8px solid #74ed45;
+        }
+        .card-move:hover {
+            border: 2px solid #74ed45;
+            background: #f7fff5;
+        }
+
+        /* Ícones de exemplo (usando emojis para não precisar carregar imagens extras) */
+        .icon-box {
+            font-size: 48px;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container { padding: 20px; }
+            .logo-header { flex-direction: column; }
+            .product-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cabeçalho com o Logo NDD -->
+        <div class="logo-header">
+            <!-- Ajustado para ler o logo da pasta assets na raiz -->
+            <img src="assets/logoNDD.png" alt="Logo NDD">
+            <h1>Extrato de Horas</h1>
+        </div>
+        <p class="subtitle">Selecione o produto para iniciar</p>
+
+        <div class="product-grid">
+            
+            <!-- CARD 1: NDD CARGO -->
+            <div class="product-card card-cargo" onclick="irPara('cargo', 'Extrato_CARGO.html')">
+                <div class="icon-box">🚛</div>
+                <h2>NDD CARGO</h2>
+                <p>CIOT · Frete · Vale Pedágio</p>
+            </div>
+
+            <!-- CARD 2: NDD ELOG -->
+            <div class="product-card card-elog" onclick="irPara('elog', 'Extrato_ELOG.html')">
+                <div class="icon-box">🌐</div>
+                <h2>NDD ELOG</h2>
+                <p>Gestão Logística e Integrações</p>
+            </div>
+
+            <!-- CARD 3: NDD MOVE -->
+            <div class="product-card card-move" onclick="irPara('move', 'Extrato_MOVE.html')">
+                <div class="icon-box">📦</div>
+                <h2>NDD MOVE</h2>
+                <p>App Conector · Go Live</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function irPara(pasta, arquivo) {
+            // Monta o caminho dinamicamente baseado na estrutura de pastas do GitHub
+            window.location.href = pasta + '/' + arquivo;
+        }
+    </script>
+
+</body>
+</html>
