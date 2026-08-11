@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pré-Vendas · NDD</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-image: url('assets/fundoazul.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        /* ===== MENU LATERAL ESCURO (FIXO) ===== */
+        #sidebar-global {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: #0a1727;
+            padding: 30px 20px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        #sidebar-global::-webkit-scrollbar { display: none; }
+
+        #sidebar-global h3 {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+
+        #sidebar-global ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar-global ul li {
+            padding: 12px 0;
+            margin-bottom: 2px;
+            cursor: pointer;
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            border-bottom: none;
+        }
+
+        #sidebar-global ul li:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            padding-left: 5px;
+            border-radius: 4px;
+        }
+
+        #sidebar-global ul li.separator {
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            margin: 10px 0;
+            padding: 0;
+            height: 0;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        #sidebar-global ul li.destaque {
+            color: #6fb8fc;
+            font-weight: bold;
+        }
+        #sidebar-global ul li.destaque:hover {
+            background: rgba(111, 184, 252, 0.1);
+        }
+
+        .btn-voltar-sidebar {
+            margin-top: 20px;
+            padding: 10px 0;
+            border: none;
+            background: transparent;
+            color: #b0b0b0;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        .btn-voltar-sidebar:hover {
+            color: #fff;
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            background: #ffffff;
+            padding: 40px 50px 50px 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-width: 1100px; /* Aumentado para acomodar Logística e Fiscal lado a lado */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            transition: margin 0.3s ease;
+            margin: 0 auto;
+        }
+
+        /* Ajuste da centralização para o novo tamanho de 1100px */
+        .container.sidebar-active {
+            margin-left: calc((100vw - 260px - 1100px) / 2 + 260px) !important;
+            margin-right: auto !important;
+            width: 100% !important;
+            max-width: 1100px !important;
+        }
+
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-header img {
+            height: 45px;
+            width: auto;
+        }
+
+        .logo-header h1 {
+            font-size: 28px;
+            color: #1a2f4f;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e3062b;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* ===== GRIDS GERAIS ===== */
+        .grid-geral {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card-geral {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 30px 20px 25px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+        }
+
+        .card-geral:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card-geral h2 {
+            font-size: 22px;
+            margin-top: 15px;
+            color: #1a2f4f;
+        }
+
+        .card-geral p {
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .card-logistica { border-top: 8px solid #1a2f4f; }
+        .card-logistica:hover { border: 2px solid #1a2f4f; background: #f0f4f9; }
+
+        .card-fiscal { border-top: 8px solid #563d7c; }
+        .card-fiscal:hover { border: 2px solid #563d7c; background: #f4f0f9; }
+
+        .card-move { border-top: 8px solid #74ed45; }
+        .card-move:hover { border: 2px solid #74ed45; background: #f7fff5; }
+
+        .card-cargo { border-top: 8px solid #ff7079; }
+        .card-cargo:hover { border: 2px solid #ff7079; background: #fffafb; }
+
+        .card-elog { border-top: 8px solid #6fb8fc; }
+        .card-elog:hover { border: 2px solid #6fb8fc; background: #f7fbff; }
+
+        .card-space { border-top: 8px solid #6c757d; }
+        .card-space:hover { border: 2px solid #6c757d; background: #f8f9fa; }
+
+        .icon-box { font-size: 48px; line-height: 1; margin-bottom: 5px; }
+
+        /* ===== PORTAL PRÉ-VENDAS (ESTRUTURADO) ===== */
+        .portal-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .portal-section h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a2f4f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9e9e9;
+            padding-bottom: 10px;
+        }
+
+        /* Seção Sobre (3 colunas) */
+        .portal-about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-card {
+            background: #f4f0f9;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e9e9e9;
+        }
+
+        .about-icon {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .about-card h3 {
+            font-size: 16px;
+            color: #1a2f4f;
+            margin-bottom: 8px;
+        }
+
+        .about-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin: 0;
+        }
+
+        /* ===== TIME DE PRÉ-VENDAS ===== */
+        /* Container pai para colocar Logística e Fiscal lado a lado */
+        .team-verticals-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .team-vertical-group h3 {
+            font-size: 18px;
+            color: #1a2f4f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Dentro de cada vertical, os cards ficam em coluna única */
+            gap: 15px;
+        }
+
+        /* ===== CORREÇÃO DOS CARDS ===== */
+        .team-card {
+            background: #f9f9f9;
+            padding: 20px 25px;
+            border-radius: 12px;
+            border: 1px solid #e9e9e9;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
+            min-height: 100px;
+            width: 100% !important; /* Ocupa 100% da coluna do grid */
+            max-width: 100% !important;
+        }
+
+        .team-photo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Ajuste do container de texto para não estourar */
+        .team-card > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .team-card h4 {
+            font-size: 16px;
+            color: #1a2f4f;
+            margin-bottom: 2px;
+            word-break: break-word;
+        }
+
+        .team-card p {
+            font-size: 13px;
+            color: #777;
+            margin: 2px 0;
+            word-break: break-word;
+        }
+
+        .team-card a {
+            color: #1a2f4f;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+            word-break: break-word;
+            display: inline-block;
+        }
+        .team-card a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden { display: none !important; }
+
+        /* ===== RESPONSIVO ===== */
+        @media screen and (max-width: 1180px) {
+            body { justify-content: center; align-items: center; flex-direction: column; }
+
+            #sidebar-global {
+                position: relative;
+                width: 100%;
+                height: auto;
+                box-shadow: none;
+                border-radius: 20px 20px 0 0;
+                margin-bottom: 20px;
+                margin-right: 0;
+            }
+
+            .container.sidebar-active {
+                margin-left: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .container { padding: 20px; width: 100%; max-width: 100%; }
+            .logo-header { flex-direction: column; }
+            .grid-geral { grid-template-columns: 1fr; }
+            
+            /* Empilha Logística e Fiscal verticalmente no mobile */
+            .team-verticals-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .portal-about-grid { grid-template-columns: 1fr; }
+            
+            #sidebar-global ul { display: flex; flex-wrap: wrap; gap: 5px; }
+            #sidebar-global ul li { padding: 6px 12px; border-bottom: none; background: rgba(255,255,255,0.1); border-radius: 6px; font-size: 13px; }
+            #sidebar-global ul li.separator { display: none; }
+            #sidebar-global h3 { width: 100%; }
+            .btn-voltar-sidebar { border-top: none; width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- MENU LATERAL ESCURO -->
+    <!-- ========================================== -->
+    <div id="sidebar-global">
+        <div id="sidebar-content"></div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- CARD CENTRAL -->
+    <!-- ========================================== -->
+    <div class="container" id="container-principal">
+
+        <!-- TELA 1: PORTAL PRÉ-VENDAS (ESTRUTURADO) -->
+        <div id="tela-portal">
+            <div class="logo-header">
+                <img src="assets/logoNDD.png" alt="Logo NDD">
+                <h1>Portal Pré-Vendas</h1>
+            </div>
+            <p class="subtitle">Conheça nosso ecossistema, soluções e time</p>
+
+            <!-- Bloco 1: Sobre o setor (3 colunas) -->
+            <div class="portal-section">
+                <h2>Sobre o Setor de Pré-Vendas</h2>
+                <div class="portal-about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">💡</div>
+                        <h3>O que é</h3>
+                        <p>O setor de Pré-Vendas da NDD é o elo entre a área comercial e a área de produtos. Atua na validação técnica de demandas, elaboração de propostas técnicas e demonstrações de soluções para clientes.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">⚙️</div>
+                        <h3>O que faz</h3>
+                        <p>Realiza levantamentos de requisitos, mapeia processos e necessidades do cliente, calcula esforço de implantação (como o Extrato de Horas), e cria roteiros de apresentação das soluções NDD.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">🚫</div>
+                        <h3>O que não faz</h3>
+                        <p>A equipe de Pré-Vendas não realiza a implantação técnica nem o suporte operacional. O foco é a venda consultiva e a pré-implantação, sendo o pós-venda e a sustentação de responsabilidade do time de Sucesso do Cliente (CS).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 2: Soluções & Ferramentas -->
+            <div class="portal-section">
+                <h2>Soluções & Ferramentas</h2>
+                <p style="color:#555; margin-bottom: 20px; font-size:14px; text-align:center;">Explore as verticais da NDD e acesse as soluções de cada produto.</p>
+                <div class="grid-geral">
+                    <div class="card-geral card-logistica" onclick="selecionarVertical('logistica')">
+                        <div class="icon-box">🚛</div>
+                        <h2>Logística</h2>
+                        <p>CARGO · ELOG · MOVE</p>
+                    </div>
+                    <div class="card-geral card-fiscal" onclick="selecionarVertical('fiscal')">
+                        <div class="icon-box">📊</div>
+                        <h2>Fiscal</h2>
+                        <p>SPACE</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 3: Time separado por vertical -->
+            <div class="portal-section">
+                <h2>Time de Pré-Vendas</h2>
+                
+                <!-- Container para alinhar Logística e Fiscal lado a lado -->
+                <div class="team-verticals-container">
+                    
+                    <!-- Time Logística -->
+                    <div class="team-vertical-group">
+                        <h3>🚛 Logística</h3>
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <img src="assets/joao.jpeg" alt="João Victor" class="team-photo">
+                                <div>
+                                    <h4>João Victor Nunes Pinheiro</h4>
+                                    <p>Executivo Técnico de Negócios Pleno</p>
+                                    <a href="mailto:joao.pinheiro@ndd.tech">joao.pinheiro@ndd.tech</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Fiscal -->
+                    <div class="team-vertical-group">
+                        <h3>📊 Fiscal</h3>
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <img src="assets/rafael.jpeg" alt="Rafael Bandieri" class="team-photo">
+                                <div>
+                                    <h4>Rafael Bandieri</h4>
+                                    <p>Executivo Técnico de Negócios Sênior</p>
+                                    <a href="mailto:rafael.bandieri@ndd.tech">rafael.bandieri@ndd.tech</a>
+                                </div>
+                            </div>
+                            <div class="team-card">
+                                <img src="assets/maria.jpeg" alt="Maria Eduarda" class="team-photo">
+                                <div>
+                                    <h4>Maria Eduarda Agostini Zanotto</h4>
+                                    <p>Executivo Técnico de Negócios Júnior</p>
+                                    <a href="mailto:maria.zanotto@ndd.tech">maria.zanotto@ndd.tech</a>
+                                </div>
+                            </div>
+                            <div class="team-card">
+                                <img src="assets/vanderluiz.jpeg" alt="Vanderluiz Oliveira" class="team-photo">
+                                <div>
+                                    <h4>Vanderluiz Da Rosa De Oliveira</h4>
+                                    <p>Executivo Técnico de Negócios Júnior</p>
+                                    <a href="mailto:vanderluiz.oliveira@ndd.tech">vanderluiz.oliveira@ndd.tech</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA 2: SELEÇÃO DE PRODUTOS -->
+        <div id="tela-produtos" class="hidden">
+            <div class="logo-header">
+                <img src="assets/logoNDD.png" alt="Logo NDD">
+            </div>
+            <p class="subtitle" id="titulo-produtos">Selecione o produto:</p>
+            <div class="grid-geral" id="grid-produtos">
+                <!-- gerado via JS -->
+            </div>
+            <button class="btn btn-voltar-sidebar" onclick="voltarParaPortal()" style="margin-top: 30px; padding: 7px 20px; border: none; border-radius: 25px; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.2s; background: #6c757d; color: #fff;">⬅ Voltar para o Portal</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // DADOS DOS PRODUTOS E SERVIÇOS
+        // ==========================================
+        const dados = {
+            logistica: {
+                produtos: [
+                    {
+                        id: 'move',
+                        nome: 'MOVE',
+                        icone: '📦',
+                        corClass: 'card-move',
+                        servicos: [
+                            { nome: 'Extrato MOVE', tipo: 'interno', destino: 'move/Extrato_MOVE.html' },
+                            { separador: true },
+                            { nome: 'Portal MOVE', tipo: 'externo', url: 'https://icomprova.nddcargo.com.br/core/dashboard' },
+                            { nome: 'Dash Move', tipo: 'externo', url: 'https://app.powerbi.com/view?r=eyJrIjoiYWJiOGU4OTktNzJjZS00NGIxLTg5ZTctOWQ2YWQ4ZjQxZjBlIiwidCI6IjcxNzE0NGQyLTZkOWYtNDJhMS1iNTZkLTQyYWZjMzc1M2VjMyJ9' },
+                            { nome: 'Dash ESG', tipo: 'externo', url: 'https://www.figma.com/proto/tYe7lTBhnQvMWCMBEeSCM9/Dashboard?page-id=0%3A1&type=design&node-id=1315-18538&viewport=585%2C3526%2C0.08&t=7WiAalvHtsTgc96H-9&scaling=scale-down&starting-point-node-id=1315%3A18538' },
+                            { nome: 'Help Center MOVE', tipo: 'externo', url: 'https://helpcenter.nddmove.com.br/' },
+                            { nome: 'XML Editor', tipo: 'externo', url: 'https://prevendasndd.github.io/XmlEditor/' },
+                            { separador: true },
+                            { nome: 'Pré-Vendas', tipo: 'portal' } /* Retorna ao Portal */
+                        ]
+                    },
+                    {
+                        id: 'cargo',
+                        nome: 'CARGO',
+                        icone: '🚛',
+                        corClass: 'card-cargo',
+                        servicos: [
+                            { nome: 'Extrato CARGO', tipo: 'interno', destino: 'cargo/Extrato_CARGO.html' },
+                            { separador: true },
+                            { nome: 'Portal CARGO', tipo: 'externo', url: 'https://web.nddcargo.com.br/portalcontratante/#/login' },
+                            { nome: 'Calculadora de ROI', tipo: 'externo', url: 'https://prevendasndd.github.io/ROIcalculator/' },
+                            { nome: 'Calc. Frete Mínimo ANTT', tipo: 'externo', url: 'https://calculadorafrete.antt.gov.br/?Length=4' },
+                            { nome: 'Help Center CARGO', tipo: 'externo', url: 'https://helpcenter.nddcargo.com.br/?l=pt' },
+                            { nome: 'Lista de ERP/TMS Integrados', tipo: 'externo', url: 'https://nddtech.notion.site/Lista-de-TMS-ERP-integrados-1921d5158ce6816c8ca8f4a1e8837756' },
+                            { nome: 'API Cargo', tipo: 'externo', url: 'https://nddtech.notion.site/Nova-API-NDD-Cargo-1d81d5158ce680b4966dfcc02f1bffdf' },
+                            { separador: true },
+                            { nome: 'Pré-Vendas', tipo: 'portal' }
+                        ]
+                    },
+                    {
+                        id: 'elog',
+                        nome: 'ELOG',
+                        icone: '🌐',
+                        corClass: 'card-elog',
+                        servicos: [
+                            { nome: 'Extrato ELOG', tipo: 'interno', destino: 'elog/Extrato_ELOG.html' },
+                            { separador: true },
+                            { nome: 'Portal ELOG', tipo: 'externo', url: 'https://portal.stg.nddelog.com/' },
+                            { nome: 'Help Center ELOG', tipo: 'externo', url: 'https://helpcenter.nddelog.com/?l=pt' },
+                            { nome: 'API ELOG', tipo: 'externo', url: 'https://developer.nddelog.com/' },
+                            { separador: true },
+                            { nome: 'Pré-Vendas', tipo: 'portal' }
+                        ]
+                    }
+                ]
+            },
+            fiscal: {
+                produtos: [
+                    {
+                        id: 'space',
+                        nome: 'SPACE',
+                        icone: '🚀',
+                        corClass: 'card-space',
+                        servicos: [
+                            { nome: 'Extrato SPACE', tipo: 'em breve' },
+                            { separador: true },
+                            { nome: 'Portal SPACE', tipo: 'externo', url: 'https://spaceportalhml.e-datacenter.nddigital.com.br/core/dashboard' },
+                            { nome: 'Help Center SPACE', tipo: 'externo', url: 'https://helpcenter-nddspace.ndd.tech/' },
+                            { separador: true },
+                            { nome: 'Pré-Vendas', tipo: 'portal' }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // ==========================================
+        // FUNÇÕES DE NAVEGAÇÃO
+        // ==========================================
+
+        let verticalAtual = '';
+        let produtoAtual = '';
+
+        function selecionarVertical(vertical) {
+            verticalAtual = vertical;
+            document.getElementById('tela-portal').classList.add('hidden');
+            document.getElementById('tela-produtos').classList.remove('hidden');
+            
+            const grid = document.getElementById('grid-produtos');
+            grid.innerHTML = '';
+            const produtos = dados[vertical].produtos;
+            produtos.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `card-geral ${p.corClass}`;
+                card.onclick = () => selecionarProduto(vertical, p.id);
+                card.innerHTML = `
+                    <div class="icon-box">${p.icone}</div>
+                    <h2>NDD ${p.nome}</h2>
+                    <p>${p.nome === 'SPACE' ? 'Soluções Fiscais' : 'Gestão Logística'}</p>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('titulo-produtos').textContent = 
+                vertical === 'logistica' ? 'Selecione o produto (Logística):' : 'Selecione o produto (Fiscal):';
+        }
+
+        function selecionarProduto(vertical, produtoId) {
+            produtoAtual = produtoId;
+            document.getElementById('tela-produtos').classList.add('hidden');
+            document.getElementById('container-principal').classList.add('sidebar-active');
+            document.getElementById('sidebar-global').style.display = 'flex';
+
+            const produto = dados[vertical].produtos.find(p => p.id === produtoId);
+            if (!produto) return;
+
+            const sidebarContent = document.getElementById('sidebar-content');
+            let html = `<h3>${produto.nome}</h3><ul>`;
+            produto.servicos.forEach(item => {
+                if (item.separador) {
+                    html += `<li class="separator"></li>`;
+                } else if (item.tipo === 'interno') {
+                    html += `<li onclick="irPara('${item.destino}')">${item.nome}</li>`;
+                } else if (item.tipo === 'externo') {
+                    html += `<li onclick="abrirLink('${item.url}')">${item.nome}</li>`;
+                } else if (item.tipo === 'portal') {
+                    html += `<li class="destaque" onclick="irParaPortal()">${item.nome}</li>`;
+                } else if (item.tipo === 'em breve') {
+                    html += `<li style="opacity:0.6; cursor:default;">${item.nome} (Em breve)</li>`;
+                }
+            });
+            html += `</ul>`;
+            html += `<button class="btn-voltar-sidebar" onclick="voltarParaProdutos()">⬅ Voltar para produtos</button>`;
+            sidebarContent.innerHTML = html;
+        }
+
+        function irParaPortal() {
+            document.getElementById('sidebar-global').style.display = 'none';
+            document.getElementById('container-principal').classList.remove('sidebar-active');
+            document.getElementById('tela-produtos').classList.add('hidden');
+            document.getElementById('tela-portal').classList.remove('hidden');
+        }
+
+        function voltarParaProdutos() {
+            document.getElementById('sidebar-global').style.display = 'none';
+            document.getElementById('container-principal').classList.remove('sidebar-active');
+            document.getElementById('tela-produtos').classList.remove('hidden');
+        }
+
+        function voltarParaPortal() {
+            document.getElementById('tela-produtos').classList.add('hidden');
+            document.getElementById('sidebar-global').style.display = 'none';
+            document.getElementById('container-principal').classList.remove('sidebar-active');
+            document.getElementById('tela-portal').classList.remove('hidden');
+        }
+
+        function irPara(destino) {
+            window.location.href = destino;
+        }
+
+        function abrirLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // ==========================================
+        // RESTAURAÇÃO DE SESSÃO (VOLTA DE EXTRATOS)
+        // ==========================================
+        if (sessionStorage.getItem('destino') === 'logistica') {
+            document.addEventListener('DOMContentLoaded', function() {
+                selecionarVertical('logistica');
+                sessionStorage.removeItem('destino');
+            });
+        }
+    </script>
+
+</body>
+</html>
