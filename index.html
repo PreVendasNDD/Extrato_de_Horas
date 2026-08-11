@@ -118,7 +118,7 @@
             padding: 40px 50px 50px 50px;
             border-radius: 20px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            max-width: 1100px; /* Aumentado para acomodar Logística e Fiscal lado a lado */
+            max-width: 1100px;
             width: 100%;
             text-align: center;
             position: relative;
@@ -126,7 +126,6 @@
             margin: 0 auto;
         }
 
-        /* Ajuste da centralização para o novo tamanho de 1100px */
         .container.sidebar-active {
             margin-left: calc((100vw - 260px - 1100px) / 2 + 260px) !important;
             margin-right: auto !important;
@@ -269,7 +268,6 @@
         }
 
         /* ===== TIME DE PRÉ-VENDAS ===== */
-        /* Container pai para colocar Logística e Fiscal lado a lado */
         .team-verticals-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -288,11 +286,10 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Dentro de cada vertical, os cards ficam em coluna única */
+            grid-template-columns: 1fr;
             gap: 15px;
         }
 
-        /* ===== CORREÇÃO DOS CARDS ===== */
         .team-card {
             background: #f9f9f9;
             padding: 20px 25px;
@@ -303,8 +300,13 @@
             gap: 20px;
             text-align: left;
             min-height: 100px;
-            width: 100% !important; /* Ocupa 100% da coluna do grid */
+            width: 100% !important;
             max-width: 100% !important;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .team-card:hover {
+            background: #e9ecef;
         }
 
         .team-photo {
@@ -338,16 +340,11 @@
             word-break: break-word;
         }
 
-        .team-card a {
-            color: #1a2f4f;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 13px;
-            word-break: break-word;
-            display: inline-block;
-        }
-        .team-card a:hover {
-            text-decoration: underline;
+        .team-card .email-text {
+            font-size: 12px;
+            color: #777;
+            margin-top: 2px;
+            word-break: break-all;
         }
 
         .hidden { display: none !important; }
@@ -375,12 +372,7 @@
             .container { padding: 20px; width: 100%; max-width: 100%; }
             .logo-header { flex-direction: column; }
             .grid-geral { grid-template-columns: 1fr; }
-            
-            /* Empilha Logística e Fiscal verticalmente no mobile */
-            .team-verticals-container {
-                grid-template-columns: 1fr;
-            }
-            
+            .team-verticals-container { grid-template-columns: 1fr; }
             .portal-about-grid { grid-template-columns: 1fr; }
             
             #sidebar-global ul { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -457,19 +449,19 @@
             <div class="portal-section">
                 <h2>Time de Pré-Vendas</h2>
                 
-                <!-- Container para alinhar Logística e Fiscal lado a lado -->
                 <div class="team-verticals-container">
                     
                     <!-- Time Logística -->
                     <div class="team-vertical-group">
                         <h3>🚛 Logística</h3>
                         <div class="team-grid">
-                            <div class="team-card">
+                            <!-- Card do João -->
+                            <div class="team-card" onclick="abrirTeams('joao.pinheiro@ndd.tech')">
                                 <img src="assets/joao.jpeg" alt="João Victor" class="team-photo">
                                 <div>
                                     <h4>João Victor Nunes Pinheiro</h4>
                                     <p>Executivo Técnico de Negócios Pleno</p>
-                                    <a href="mailto:joao.pinheiro@ndd.tech">joao.pinheiro@ndd.tech</a>
+                                    <span class="email-text">joao.pinheiro@ndd.tech</span>
                                 </div>
                             </div>
                         </div>
@@ -479,28 +471,33 @@
                     <div class="team-vertical-group">
                         <h3>📊 Fiscal</h3>
                         <div class="team-grid">
-                            <div class="team-card">
+                            <!-- Card do Rafael -->
+                            <div class="team-card" onclick="abrirTeams('rafael.bandieri@ndd.tech')">
                                 <img src="assets/rafael.jpeg" alt="Rafael Bandieri" class="team-photo">
                                 <div>
                                     <h4>Rafael Bandieri</h4>
                                     <p>Executivo Técnico de Negócios Sênior</p>
-                                    <a href="mailto:rafael.bandieri@ndd.tech">rafael.bandieri@ndd.tech</a>
+                                    <span class="email-text">rafael.bandieri@ndd.tech</span>
                                 </div>
                             </div>
-                            <div class="team-card">
+                            
+                            <!-- Card da Maria -->
+                            <div class="team-card" onclick="abrirTeams('maria.zanotto@ndd.tech')">
                                 <img src="assets/maria.jpeg" alt="Maria Eduarda" class="team-photo">
                                 <div>
                                     <h4>Maria Eduarda Agostini Zanotto</h4>
                                     <p>Executivo Técnico de Negócios Júnior</p>
-                                    <a href="mailto:maria.zanotto@ndd.tech">maria.zanotto@ndd.tech</a>
+                                    <span class="email-text">maria.zanotto@ndd.tech</span>
                                 </div>
                             </div>
-                            <div class="team-card">
+                            
+                            <!-- Card do Vanderluiz -->
+                            <div class="team-card" onclick="abrirTeams('vanderluiz.oliveira@ndd.tech')">
                                 <img src="assets/vanderluiz.jpeg" alt="Vanderluiz Oliveira" class="team-photo">
                                 <div>
                                     <h4>Vanderluiz Da Rosa De Oliveira</h4>
                                     <p>Executivo Técnico de Negócios Júnior</p>
-                                    <a href="mailto:vanderluiz.oliveira@ndd.tech">vanderluiz.oliveira@ndd.tech</a>
+                                    <span class="email-text">vanderluiz.oliveira@ndd.tech</span>
                                 </div>
                             </div>
                         </div>
@@ -544,9 +541,10 @@
                             { nome: 'Dash ESG', tipo: 'externo', url: 'https://www.figma.com/proto/tYe7lTBhnQvMWCMBEeSCM9/Dashboard?page-id=0%3A1&type=design&node-id=1315-18538&viewport=585%2C3526%2C0.08&t=7WiAalvHtsTgc96H-9&scaling=scale-down&starting-point-node-id=1315%3A18538' },
                             { nome: 'Help Center MOVE', tipo: 'externo', url: 'https://helpcenter.nddmove.com.br/' },
                             { nome: 'XML Editor', tipo: 'externo', url: 'https://prevendasndd.github.io/XmlEditor/' },
+                            { separador: true },
                             { nome: 'Fluxograma', tipo: 'externo', url: 'https://prevendasndd.github.io/fluxograma//fluxograma_ndd_log%C3%ADstica.html' },
                             { separador: true },
-                            { nome: 'Pré-Vendas', tipo: 'portal' } /* Retorna ao Portal */
+                            { nome: 'Pré-Vendas', tipo: 'portal' }
                         ]
                     },
                     {
@@ -563,6 +561,7 @@
                             { nome: 'Help Center CARGO', tipo: 'externo', url: 'https://helpcenter.nddcargo.com.br/?l=pt' },
                             { nome: 'Lista de ERP/TMS Integrados', tipo: 'externo', url: 'https://nddtech.notion.site/Lista-de-TMS-ERP-integrados-1921d5158ce6816c8ca8f4a1e8837756' },
                             { nome: 'API Cargo', tipo: 'externo', url: 'https://nddtech.notion.site/Nova-API-NDD-Cargo-1d81d5158ce680b4966dfcc02f1bffdf' },
+                            { separador: true },
                             { nome: 'Fluxograma', tipo: 'externo', url: 'https://prevendasndd.github.io/fluxograma//fluxograma_ndd_log%C3%ADstica.html' },
                             { separador: true },
                             { nome: 'Pré-Vendas', tipo: 'portal' }
@@ -579,6 +578,8 @@
                             { nome: 'Portal ELOG', tipo: 'externo', url: 'https://portal.stg.nddelog.com/' },
                             { nome: 'Help Center ELOG', tipo: 'externo', url: 'https://helpcenter.nddelog.com/?l=pt' },
                             { nome: 'API ELOG', tipo: 'externo', url: 'https://developer.nddelog.com/' },
+                            { separador: true },
+                            { nome: 'Fluxograma', tipo: 'externo', url: 'https://prevendasndd.github.io/fluxograma//fluxograma_ndd_log%C3%ADstica.html' },
                             { separador: true },
                             { nome: 'Pré-Vendas', tipo: 'portal' }
                         ]
@@ -597,6 +598,8 @@
                             { separador: true },
                             { nome: 'Portal SPACE', tipo: 'externo', url: 'https://spaceportalhml.e-datacenter.nddigital.com.br/core/dashboard' },
                             { nome: 'Help Center SPACE', tipo: 'externo', url: 'https://helpcenter-nddspace.ndd.tech/' },
+                            { separador: true },
+                            { nome: 'Fluxograma', tipo: 'externo', url: 'https://prevendasndd.github.io/fluxograma//fluxograma_ndd_log%C3%ADstica.html' },
                             { separador: true },
                             { nome: 'Pré-Vendas', tipo: 'portal' }
                         ]
@@ -691,6 +694,12 @@
 
         function abrirLink(url) {
             window.open(url, '_blank');
+        }
+
+        // ===== NOVA FUNÇÃO PARA ABRIR O TEAMS (SEM ABA NOVA) =====
+        function abrirTeams(email) {
+            // Usando o protocolo msteams:// e window.location.href para não abrir uma nova aba
+            window.location.href = 'msteams://teams.microsoft.com/l/chat/0/0?users=' + email;
         }
 
         // ==========================================
