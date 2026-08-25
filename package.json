@@ -4,6 +4,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
+    "build": "node -e \"console.log('NDD API: build concluido')\"",
     "start": "node backend/src/server.js",
     "create-admin": "node backend/scripts/create-admin.js"
   },
