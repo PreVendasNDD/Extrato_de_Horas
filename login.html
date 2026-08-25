@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login · Portal Pré-Vendas NDD</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#071526 url('assets/fundoazul.png') center/cover fixed;display:grid;place-items:center;padding:24px}.card{width:min(440px,100%);background:rgba(255,255,255,.97);border-radius:22px;padding:38px;box-shadow:0 24px 70px rgba(0,0,0,.38)}.logo{display:block;max-width:155px;max-height:62px;object-fit:contain;margin:0 auto 25px}h1{font-size:25px;margin:0;text-align:center;color:#0a1727}p{color:#64748b;text-align:center;margin:9px 0 28px;font-size:14px}.field{margin-bottom:17px}label{display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:7px}input{width:100%;height:48px;border:1px solid #cbd5e1;border-radius:10px;padding:0 13px;font-size:15px;outline:none}input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}button{width:100%;height:49px;border:0;border-radius:11px;background:#0a1727;color:#fff;font-weight:700;font-size:15px;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.error{min-height:20px;color:#b91c1c;text-align:center;font-size:13px;margin:15px 0 0}.status{text-align:center;font-size:12px;color:#94a3b8;margin-top:22px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <img src="assets/logoNDD.png" alt="NDD" class="logo">
+    <h1>Portal Pré-Vendas</h1>
+    <p>Entre com seu usuário e senha para continuar.</p>
+    <form id="loginForm">
+      <div class="field"><label for="username">Usuário</label><input id="username" autocomplete="username" required autofocus></div>
+      <div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button id="submit" type="submit">Entrar</button>
+      <div id="error" class="error" aria-live="polite"></div>
+    </form>
+    <div class="status">Acesso restrito · NDD</div>
+  </main>
+  <script src="auth/config.js"></script>
+  <script src="auth/auth.js"></script>
+  <script>
+    (async()=>{if(NDDAuth.token()){try{await NDDAuth.requireAuth();if(NDDAuth.token())location.replace(NDD_PORTAL_CONFIG.portalPage);}catch(_){}}})();
+    document.getElementById('loginForm').addEventListener('submit',async(e)=>{
+      e.preventDefault();const btn=document.getElementById('submit'),err=document.getElementById('error');err.textContent='';btn.disabled=true;btn.textContent='Entrando...';
+      try{await NDDAuth.login(document.getElementById('username').value.trim(),document.getElementById('password').value);location.replace(NDD_PORTAL_CONFIG.portalPage);}catch(ex){err.textContent=ex.status===401?'Usuário ou senha inválidos.':'Não foi possível acessar o servidor.';btn.disabled=false;btn.textContent='Entrar';}
+    });
+  </script>
+</body>
+</html>
